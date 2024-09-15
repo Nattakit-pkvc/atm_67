@@ -1,0 +1,39 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    <title>Welcome</title>
+{% endblock %}
+
+{% block content %}
+<h1>Welcome</h1>
+
+<!--  
+{% if alert_message.status == "success" %}
+    <div class="alert alert-success" role="alert">
+      {{ alert_message.message }}
+    </div>
+{% endif %}
+-->
+
+<!-- Alert Messages -->
+{% if alert_message.status == "fail" %}
+  <div class="alert alert-danger" role="alert">
+    {{ alert_message.message }}
+  </div>
+{% endif %}
+
+<form action="{{ url_for('show') }}" method="post">
+<div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" required>
+</div>
+
+<div class="mb-3">
+    <button type="submit" class="btn btn-success">Show</button>
+</div>
+
+</form>
+<div>
+  <a href="{{ url_for('register') }}" class="btn btn-primary">Create Accout</a>
+</div>
+{% endblock %}

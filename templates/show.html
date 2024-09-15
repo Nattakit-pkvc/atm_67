@@ -1,0 +1,55 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    <title>Welcome</title>
+{% endblock %}
+
+{% block content %}
+
+{% if alert_message.status == "success" %}
+    <div class="alert alert-success" role="alert">
+      {{ alert_message.message }}
+    </div>
+{% endif %}
+
+{% if alert_message.status == "fail" %}
+  <div class="alert alert-danger" role="alert">
+    {{ alert_message.message }}
+  </div>
+{% endif %} 
+
+<h1>Welcome {{ username }}</h1>
+
+<table class="table">
+    <thead >
+      <th>Account Number</th>
+        <th>Username</th>
+        <th class=" text-center">Balance</th>
+        <th class=" text-center">Deposit</th>
+        <th class=" text-center">Withdraw</th>
+        <th class=" text-center">Delete Account</th>
+    </thead>
+
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result.account_number }}</td>
+        <td>{{ result.username }}</td>
+        <td class=" text-center" >{{ result.balance }}</td>
+        <td class=" text-center"><a href="{{ url_for('deposit', user_id = result.id) }}" class="btn btn-success" >Deposit</a></td>
+        <td class=" text-center"><a href="{{ url_for('withdraw', user_id = result.id) }}" class="btn btn-warning" >Withdraw</a></td>
+        <td class=" text-center"><a href="#" class="btn btn-danger" onclick="return confirmDelete();" >Delete Account</a></td>
+        <script>
+          function confirmDelete() {
+              return confirm("Are you sure you want to delete your account?");
+          }
+        </script>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center ">
+    <a href="{{ url_for('leave') }}" class="btn btn-danger ">Leave</a>
+  </div>
+  
+{% endblock %}

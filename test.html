@@ -1,0 +1,48 @@
+@app.route("/show", methods=['GET', 'POST'])
+def show():
+    if request.method == "POST":
+        username = request.form['username']
+        print ("Input:",username)
+        
+    # Connect to Database
+    my_db = mysql.connector.connect(
+        host = DB_HOST,
+        user = DB_USER,
+        password = DB_PASS,
+        db = DB_NAME,
+    )
+    
+    my_cursor = my_db.cursor(dictionary=True)
+    sql = "SELECT * FROM atm_member WHERE username = %s"
+    val = (username,)
+    my_cursor.execute(sql, val)
+    results = my_cursor.fetchall()
+    # Show Messages
+    if "alert_status" in session and "alert_message" in session:
+        alert_message = {
+            'status': session["alert_status"],
+            'message': session["alert_message"],
+        }
+        del session["alert_status"]
+        del session["alert_message"]
+    else:
+        alert_message = {
+            'status': None,
+            'message': None,
+        }
+        
+    if results:
+        session['alert_status'] = "success"
+        session['alert_message'] = "Login successful!"
+        print (results)
+        return render_template("show.html",alert_message = alert_message, results=results, username=username)
+        
+        # return redirect("/")
+    else:
+        session['alert_status'] = "fail"
+        session['alert_message'] = "Something went wrong!"
+        return redirect("/")
+        <div>
+            <a href="register.html" class="btn btn-primary">Create Accout</a>
+        </div>
+            
