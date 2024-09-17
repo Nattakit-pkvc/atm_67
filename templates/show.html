@@ -1,7 +1,7 @@
 {% extends "base_template.html" %}
 
 {% block title %}
-    <title>Welcome</title>
+    <title>Show</title>
 {% endblock %}
 
 {% block content %}
@@ -20,14 +20,14 @@
 
 <h1>Welcome {{ username }}</h1>
 
-<table class="table">
+<table class="table ">
     <thead >
       <th>Account Number</th>
         <th>Username</th>
         <th class=" text-center">Balance</th>
-        <th class=" text-center">Deposit</th>
-        <th class=" text-center">Withdraw</th>
-        <th class=" text-center">Delete Account</th>
+        <th class=" text-center"></th>
+        <th class=" text-center">Action</th>
+        <th class=" text-center"> </th>
     </thead>
 
     <tbody>
@@ -36,20 +36,18 @@
         <td>{{ result.account_number }}</td>
         <td>{{ result.username }}</td>
         <td class=" text-center" >{{ result.balance }}</td>
-        <td class=" text-center"><a href="{{ url_for('deposit', user_id = result.id) }}" class="btn btn-success" >Deposit</a></td>
-        <td class=" text-center"><a href="{{ url_for('withdraw', user_id = result.id) }}" class="btn btn-warning" >Withdraw</a></td>
-        <td class=" text-center"><a href="#" class="btn btn-danger" onclick="return confirmDelete();" >Delete Account</a></td>
-        <script>
-          function confirmDelete() {
-              return confirm("Are you sure you want to delete your account?");
-          }
-        </script>
+        <td class=" text-center"><a href="{{ url_for('deposit', user_id = result.id) }}" class="btn btn-success" data-bs-toggle="tooltip" title="Deposit" ><i class="bi bi-wallet"></i></a></td>
+        <td class=" text-center"><a href="{{ url_for('withdraw', user_id = result.id) }}" class="btn btn-warning" data-bs-toggle="tooltip" title="withdraw" ><i class="bi bi-cash-stack"></i></a></td>
+        <td class=" text-center">
+          <form action="/delete/{{ result['id'] }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+              <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip" title="Delete Account"><i class="bi bi-trash"></i></button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
   <div class="d-flex justify-content-center ">
-    <a href="{{ url_for('leave') }}" class="btn btn-danger ">Leave</a>
+    <a href="{{ url_for('leave') }}" class="btn btn-danger "><i class="bi bi-box-arrow-right" data-bs-toggle="tooltip" title="Sign Out"></i></a>
   </div>
-  
 {% endblock %}

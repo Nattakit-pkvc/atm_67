@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<h1>Register</h1>
+
+{% if alert_message.status %}
+<div class="alert alert-{{ 'success' if alert_message.status == 'success' else 'danger' }}">
+    {{ alert_message.message }}
+</div>
+{% endif %}
+
+<h1 class="mb-3 mt-3">Register</h1>
 
 <!-- test text -->
 <form action="{{ url_for('create') }}" method="post">

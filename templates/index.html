@@ -1,39 +1,46 @@
-{% extends "base_template.html" %}
+{% extends "base_template.html" %} {% block title %}
+<title>Welcome</title>
+{% endblock %} {% block content %}
 
-{% block title %}
-    <title>Welcome</title>
-{% endblock %}
-
-{% block content %}
-<h1>Welcome</h1>
-
-<!--  
 {% if alert_message.status == "success" %}
-    <div class="alert alert-success" role="alert">
-      {{ alert_message.message }}
+<div class="alert alert-success" role="alert">
+  {{ alert_message.message }}
+</div>
+{% endif %} {% if alert_message.status == "fail" %}
+<div class="alert alert-danger" role="alert">
+  {{ alert_message.message }}
+</div>
+{% endif %}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="text-center">
+    <h1>Zen ATM</h1>
+
+
+
+    <form action="{{ url_for('show') }}" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          placeholder="Enter Your Username"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success bi bi-info-circle"> Check the Balance</button>
+      </div>
+    </form>
+    <div>
+      <a href="{{ url_for('register') }}" class="btn btn-primary bi bi-person"
+        > Create Accout</a
+      >
     </div>
-{% endif %}
--->
-
-<!-- Alert Messages -->
-{% if alert_message.status == "fail" %}
-  <div class="alert alert-danger" role="alert">
-    {{ alert_message.message }}
+    {% endblock %}
   </div>
-{% endif %}
-
-<form action="{{ url_for('show') }}" method="post">
-<div class="mb-3">
-    <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" required>
+  <!-- Alert Messages -->
 </div>
-
-<div class="mb-3">
-    <button type="submit" class="btn btn-success">Show</button>
-</div>
-
-</form>
-<div>
-  <a href="{{ url_for('register') }}" class="btn btn-primary">Create Accout</a>
-</div>
-{% endblock %}
