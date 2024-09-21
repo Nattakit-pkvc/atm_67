@@ -1,0 +1,25 @@
+.avatar {
+  display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง */
+  justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
+  align-items: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
+  width: 250px; /* ขนาดกรอบที่ต้องการ */
+  height: 250px; /* ขนาดกรอบที่ต้องการ */
+  border: 2px solid #ccc; /* กำหนดกรอบ */
+  border-radius: 50%; /* ทำให้กรอบกลม */
+  overflow: hidden; /* ซ่อนส่วนที่เกิน */
+  margin: 0 auto; /* จัดให้กรอบอยู่ตรงกลาง */
+  margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+  background: #ffffff;
+}
+
+.avatar img {
+  width: 100%; /* ทำให้ภาพเต็มกรอบ */
+  height: auto; /* รักษาสัดส่วนภาพ */
+}
+
+.logo {
+  font-size: 72px;
+  background: -webkit-linear-gradient(#ff00ff, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

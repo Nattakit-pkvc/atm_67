@@ -1,48 +1,42 @@
-@app.route("/show", methods=['GET', 'POST'])
-def show():
-    if request.method == "POST":
-        username = request.form['username']
-        print ("Input:",username)
-        
-    # Connect to Database
-    my_db = mysql.connector.connect(
-        host = DB_HOST,
-        user = DB_USER,
-        password = DB_PASS,
-        db = DB_NAME,
-    )
-    
-    my_cursor = my_db.cursor(dictionary=True)
-    sql = "SELECT * FROM atm_member WHERE username = %s"
-    val = (username,)
-    my_cursor.execute(sql, val)
-    results = my_cursor.fetchall()
-    # Show Messages
-    if "alert_status" in session and "alert_message" in session:
-        alert_message = {
-            'status': session["alert_status"],
-            'message': session["alert_message"],
-        }
-        del session["alert_status"]
-        del session["alert_message"]
-    else:
-        alert_message = {
-            'status': None,
-            'message': None,
-        }
-        
-    if results:
-        session['alert_status'] = "success"
-        session['alert_message'] = "Login successful!"
-        print (results)
-        return render_template("show.html",alert_message = alert_message, results=results, username=username)
-        
-        # return redirect("/")
-    else:
-        session['alert_status'] = "fail"
-        session['alert_message'] = "Something went wrong!"
-        return redirect("/")
-        <div>
-            <a href="register.html" class="btn btn-primary">Create Accout</a>
-        </div>
-            
+{% extends "base_template.html" %} 
+
+{% block title %}
+<title>Welcome</title>
+{% endblock %} {% block content %}
+
+{% if alert_message.status == "success" %}
+<div class="alert alert-success" role="alert">
+  {{ alert_message.message }}
+</div>
+{% endif %} {% if alert_message.status == "fail" %}
+<div class="alert alert-danger" role="alert">
+  {{ alert_message.message }}
+</div>
+{% endif %}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="text-center">
+    <h1>Welcome to Zen ATM</h1>
+    <div class="avatar">
+      <img src="{{ url_for('static', filename='images/atm.jfif') }}" alt="Your Image">
+    </div>
+
+    <form action="{{ url_for('show') }}" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" required/>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success bi bi-info-circle"> Check the Balance</button>
+      </div>
+    </form>
+    <div>
+      <a href="{{ url_for('register') }}" class="btn btn-primary bi bi-person"
+        > Create Accout</a
+      >
+    </div>
+    {% endblock %}
+  </div>
+  <!-- Alert Messages -->
+</div>

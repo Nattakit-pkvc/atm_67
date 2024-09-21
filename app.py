@@ -118,7 +118,7 @@ def show():
         else:
             session['username'] = ""
             session['alert_status'] = "fail"
-            session['alert_message'] = "Something went wrong!"
+            session['alert_message'] = "Username not found!"
             return redirect("/")
         
         # Use redirect to avoid form re-submission on refresh

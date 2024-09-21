@@ -1,4 +1,6 @@
-{% extends "base_template.html" %} {% block title %}
+{% extends "base_template.html" %} 
+
+{% block title %}
 <title>Welcome</title>
 {% endblock %} {% block content %}
 
@@ -14,21 +16,14 @@
 
 <div class="d-flex justify-content-center align-items-center min-vh-100">
   <div class="text-center">
-    <h1>Zen ATM</h1>
-
-
+    <div class="avatar">
+      <h1 class="logo">ZEN ATM</h1>
+    </div>
 
     <form action="{{ url_for('show') }}" method="post">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          name="username"
-          placeholder="Enter Your Username"
-          required
-        />
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" required/>
       </div>
 
       <div class="mb-3">
